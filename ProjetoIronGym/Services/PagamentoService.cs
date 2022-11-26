@@ -63,7 +63,20 @@ namespace ProjetoIronGym.Services
 
         public List<Pagamento> RecuperaPagamentos()
         {
-            return _context.Pagamentos.ToList();
+            return _context.Pagamentos.OrderBy(a=>a.DataDoPagamento).ToList();
+        }
+
+
+        public List<Pagamento> RecuperaPagamentosPorNome(string nome)
+        {
+            List<Pagamento> pagamentos = RecuperaPagamentos().Where(t => t.Aluno.Nome.ToUpper().Contains(nome.ToUpper())).ToList();
+            if (pagamentos != null)
+            {
+                return pagamentos;
+            }
+
+            return null;
+
         }
 
         public Pagamento RecuperaPagamentosPorId(int id)
@@ -75,6 +88,12 @@ namespace ProjetoIronGym.Services
             }
 
             return null;
+        }
+
+        public List<Pagamento> RecuperaPagamentosPorPeriodo(DateTime inicio, DateTime fim)
+        {
+            return RecuperaPagamentos()
+                 .Where(t => inicio.Date <= t.DataDoPagamento.Date && t.DataDoPagamento.Date <= fim.Date).ToList();
         }
 
         public Result AtualizaPagamento(int id, UpdatePagamentoDto updatePagamentoDto)

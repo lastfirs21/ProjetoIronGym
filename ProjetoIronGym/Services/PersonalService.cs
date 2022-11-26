@@ -26,7 +26,7 @@ namespace ProjetoIronGym.Services
 
         public List<Personal> RecuperaPersonais()
         {
-            return _context.Personais.ToList();
+            return _context.Personais.OrderBy(a=>a.Nome).ToList();
         }
 
         public Personal RecuperaPersonaisPorId(int id)

@@ -35,6 +35,8 @@ namespace ProjetoIronGym
                 services.AddScoped<PersonalService, PersonalService>();// Para Adicionar uma Serice ao Escopo
                 services.AddScoped<PlanoService, PlanoService>();// Para Adicionar uma Serice ao Escopo
                 services.AddScoped<DespesaService, DespesaService>();// Para Adicionar uma Serice ao Escopo
+                services.AddScoped<RecebimentoService, RecebimentoService>();// Para Adicionar uma Serice ao Escopo
+                services.AddScoped<RelatorioService, RelatorioService>();// Para Adicionar uma Serice ao Escopo
       
 
             services.AddControllers();

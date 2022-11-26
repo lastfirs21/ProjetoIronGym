@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ProjetoIronGym.Data.Dtos.Update;
 using ProjetoIronGym.Models;
 using ProjetoIronGym.Services;
+using System;
 using System.Collections.Generic;
 
 namespace ProjetoIronGym.Controllers
@@ -33,6 +34,7 @@ namespace ProjetoIronGym.Controllers
             if (despesas == null) return NotFound();
             return Ok(despesas);
         }
+
 
         [HttpGet("{id}")]
         public IActionResult RecuperaDespesasPorId(int id)

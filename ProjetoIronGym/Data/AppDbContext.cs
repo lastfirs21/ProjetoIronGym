@@ -45,5 +45,6 @@ namespace ProjetoIronGym.Data
         public DbSet<Plano> Planos { get; set; }
         public DbSet<Personal> Personais { get; set; }
         public DbSet<Despesa> Despesas { get; set; }
+        public DbSet<Recebimento> Recebimentos { get; set; }
     }
 }

@@ -21,6 +21,7 @@ namespace ProjetoIronGym.Services
         }
         public void AdicionaAluno(Aluno aluno)
         {
+
             _context.Alunos.Add(aluno);
             _context.SaveChanges();
         }
@@ -31,7 +32,7 @@ namespace ProjetoIronGym.Services
 
             alunos.ForEach((Aluno aluno) =>
             {
-                if(DateTime.Now.DayOfYear - aluno.VencimentoMensalidade.DayOfYear >= 10)
+                if(DateTime.Now.Subtract(aluno.VencimentoMensalidade).TotalDays >10)
                 {
                     aluno.Status = "Inativo";
                 }
@@ -42,7 +43,7 @@ namespace ProjetoIronGym.Services
 
 
 
-                if(DateTime.Now.DayOfYear - aluno.VencimentoMensalidade.DayOfYear >= 1)
+                if(DateTime.Now.Subtract(aluno.VencimentoMensalidade).TotalDays >= 1)
                 {
                     aluno.StatusMensalidade = "Vencido";
                 }
@@ -50,12 +51,22 @@ namespace ProjetoIronGym.Services
                 {
                     aluno.StatusMensalidade = "Em Dia";
                 }
-
-
                 
             });
+            _context.SaveChanges();
+                return _context.Alunos.OrderBy(a=>a.Nome).ToList();
+        }
 
-                return _context.Alunos.ToList();
+        public List<Aluno> RecuperaAlunosPorNome(string nome)
+        {
+            List<Aluno> alunos = RecuperaAlunos().Where(t => t.Nome.ToUpper().Contains(nome.ToUpper())).ToList();
+            if (alunos != null)
+            {
+                return alunos;
+            }
+
+            return null;
+
         }
 
         public Aluno RecuperaAlunosPorId(int id)

@@ -3,6 +3,7 @@ using FluentResults;
 using ProjetoIronGym.Data;
 using ProjetoIronGym.Data.Dtos.Update;
 using ProjetoIronGym.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -29,6 +30,7 @@ namespace ProjetoIronGym.Services
             return _context.Despesas.ToList();
         }
 
+
         public Despesa RecuperaDespesasPorId(int id)
         {
             Despesa despesa = _context.Despesas.FirstOrDefault(t => t.Id == id);
@@ -39,7 +41,11 @@ namespace ProjetoIronGym.Services
 
             return null;
         }
-
+        public List<Despesa> RecuperaDespesasPorPeriodo(DateTime inicio, DateTime fim)
+        {
+            return RecuperaDespesas()
+                 .Where(t => inicio.Date <= t.DataDoPagamento.Date && t.DataDoPagamento.Date <= fim.Date).ToList();
+        }
         public Result AtualizaDespesa(int id, UpdateDespesaDto updateDespesaDto)
         {
             Despesa despesa = _context.Despesas.FirstOrDefault(despesa => despesa.Id == id);

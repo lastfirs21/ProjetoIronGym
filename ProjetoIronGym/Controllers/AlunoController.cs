@@ -26,13 +26,26 @@ namespace ProjetoIronGym.Controllers
         }
 
 
+ 
         [HttpGet]
-        public IActionResult RecuperaAlunos()
+        public IActionResult RecuperaAlunos(string nome)
         {
-            List<Aluno> alunos = _alunoService.RecuperaAlunos();
+            List<Aluno> alunos;
+
+            if (nome == "undefined") nome = null;
+
+            if(nome != null)
+            {
+            alunos = _alunoService.RecuperaAlunosPorNome(nome);
+            }
+            else
+            {
+                alunos = _alunoService.RecuperaAlunos();
+            }
             if (alunos == null) return NotFound();
             return Ok(alunos);
         }
+
 
         [HttpGet("{id}")]
         public IActionResult RecuperaAlunosPorId(int id)

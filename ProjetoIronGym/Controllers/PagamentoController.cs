@@ -5,6 +5,7 @@ using ProjetoIronGym.Data.Dtos.Create;
 using ProjetoIronGym.Models;
 using ProjetoIronGym.Services;
 using System.Collections.Generic;
+using System;
 
 namespace ProjetoIronGym.Controllers
 {
@@ -28,12 +29,26 @@ namespace ProjetoIronGym.Controllers
 
 
         [HttpGet]
-        public IActionResult RecuperaPagamentos()
+        public IActionResult RecuperaPagamentos(string nome)
         {
-            List<Pagamento> pagamentos = _pagamentoService.RecuperaPagamentos();
+            List < Pagamento > pagamentos;
+
+            if(nome==null || nome=="undefined")
+            {
+                pagamentos = _pagamentoService.RecuperaPagamentos();
+            }
+            else
+            {
+            pagamentos = _pagamentoService.RecuperaPagamentosPorNome(nome);
+
+            }
+            
             if (pagamentos == null) return NotFound();
             return Ok(pagamentos);
         }
+
+       
+
 
         [HttpGet("{id}")]
         public IActionResult RecuperaPagamentosPorId(int id)

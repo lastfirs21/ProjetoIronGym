@@ -26,7 +26,7 @@ namespace ProjetoIronGym.Services
 
         public List<Plano> RecuperaPlanos()
         {
-            return _context.Planos.ToList();
+            return _context.Planos.OrderBy(a=>a.Descricao).ToList();
         }
 
         public Plano RecuperaPlanosPorId(int id)
